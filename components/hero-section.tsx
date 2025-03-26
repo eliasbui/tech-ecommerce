@@ -1,46 +1,49 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import { motion } from "framer-motion"
-import Link from "next/link"
-import Image from "next/image"
-import { ArrowRight } from "lucide-react"
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import Image from "next/image";
+import { ArrowRight, PartyPopper, Sparkles, Flame } from "lucide-react";
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 
 export default function HeroSection() {
-  const [currentSlide, setCurrentSlide] = useState(0)
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   const slides = [
     {
       title: "Next-Gen Tech at Your Fingertips",
-      description: "Discover the latest innovations in technology with our premium selection of devices.",
+      description:
+        "Discover the latest innovations in technology with our premium selection of devices.",
       image: "/placeholder.svg?height=600&width=1200",
       cta: "Shop Now",
       link: "/products",
     },
     {
       title: "Exclusive Summer Deals",
-      description: "Limited time offers on our most popular tech products. Save up to 40% on selected items.",
+      description:
+        "Limited time offers on our most popular tech products. Save up to 40% on selected items.",
       image: "/placeholder.svg?height=600&width=1200",
       cta: "View Deals",
       link: "/deals",
     },
     {
       title: "Smart Home Revolution",
-      description: "Transform your living space with cutting-edge smart home devices and systems.",
+      description:
+        "Transform your living space with cutting-edge smart home devices and systems.",
       image: "/placeholder.svg?height=600&width=1200",
       cta: "Explore",
       link: "/categories/smart-home",
     },
-  ]
+  ];
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length)
-    }, 5000)
-    return () => clearInterval(interval)
-  }, [slides.length])
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [slides.length]);
 
   return (
     <section className="relative overflow-hidden bg-gradient-to-r from-blue-900 to-blue-700 text-white">
@@ -60,16 +63,54 @@ export default function HeroSection() {
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.5 }}
             >
-              <h1 className="text-4xl md:text-6xl font-bold tracking-tighter">{slides[currentSlide].title}</h1>
-              <p className="mt-4 text-xl text-blue-100 max-w-md">{slides[currentSlide].description}</p>
+              <h1 className="text-4xl md:text-6xl font-bold tracking-tighter">
+                {slides[currentSlide].title}
+              </h1>
+              <p className="mt-4 text-xl text-blue-100 max-w-md">
+                {slides[currentSlide].description}
+              </p>
               <div className="mt-8 flex flex-wrap gap-4">
-                <Button asChild size="lg" className="bg-white text-blue-900 hover:bg-blue-50">
+                <Button
+                  asChild
+                  size="lg"
+                  className="bg-white text-blue-900 hover:bg-blue-50 group relative overflow-hidden"
+                >
                   <Link href={slides[currentSlide].link}>
-                    {slides[currentSlide].cta} <ArrowRight className="ml-2 h-4 w-4" />
+                    <span className="relative z-10 flex items-center">
+                      {slides[currentSlide].cta}{" "}
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </span>
+                    <div className="absolute inset-0 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="absolute -top-2 -left-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <PartyPopper className="h-6 w-6 text-yellow-400 animate-bounce" />
+                    </div>
+                    <div className="absolute -top-2 -right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <Sparkles className="h-6 w-6 text-pink-400 animate-pulse" />
+                    </div>
+                    <div className="absolute -bottom-2 -left-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <Flame className="h-6 w-6 text-orange-400 animate-spin" />
+                    </div>
                   </Link>
                 </Button>
-                <Button asChild variant="outline" size="lg" className="border-white text-white hover:bg-white/10">
-                  <Link href="/categories">Browse Categories</Link>
+                <Button
+                  asChild
+                  variant="outline"
+                  size="lg"
+                  className="border-white text-white hover:bg-white/10 group relative overflow-hidden"
+                >
+                  <Link href="/categories">
+                    <span className="relative z-10">Browse Categories</span>
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="absolute -top-2 -left-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <PartyPopper className="h-6 w-6 text-yellow-400 animate-bounce" />
+                    </div>
+                    <div className="absolute -top-2 -right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <Sparkles className="h-6 w-6 text-pink-400 animate-pulse" />
+                    </div>
+                    <div className="absolute -bottom-2 -left-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <Flame className="h-6 w-6 text-orange-400 animate-spin" />
+                    </div>
+                  </Link>
                 </Button>
               </div>
             </motion.div>
@@ -137,6 +178,5 @@ export default function HeroSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }
-

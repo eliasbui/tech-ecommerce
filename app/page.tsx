@@ -66,7 +66,7 @@ export default function Home() {
                 <span className="sr-only">Search</span>
               </Button>
             </Link>
-            <Link href="/account">
+            <Link href="/profile">
               <Button variant="ghost" size="icon" className="hover:text-blue-600">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -233,18 +233,7 @@ export default function Home() {
             </div>
           </div>
           <div className="flex flex-col md:flex-row justify-between items-center mt-8 pt-8 border-t">
-            <p className="text-xs text-gray-500">© 2024 TechHub. All rights reserved.</p>
-            <div className="flex space-x-4 mt-4 md:mt-0">
-              <Link href="#" className="text-xs text-gray-500 hover:text-blue-600">
-                Privacy Policy
-              </Link>
-              <Link href="#" className="text-xs text-gray-500 hover:text-blue-600">
-                Terms of Service
-              </Link>
-              <Link href="#" className="text-xs text-gray-500 hover:text-blue-600">
-                Cookie Policy
-              </Link>
-            </div>
+
           </div>
         </div>
       </footer>
