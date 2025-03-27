@@ -1,76 +1,84 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState } from "react"
-import { motion } from "framer-motion"
-import Link from "next/link"
-import Image from "next/image"
-import { Eye, EyeOff, Github, Loader2, Home } from "lucide-react"
-import { useRouter } from "next/navigation"
+import { useState } from "react";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import Image from "next/image";
+import { Eye, EyeOff, Github, Loader2, Home } from "lucide-react";
+import { useRouter } from "next/navigation";
 
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Separator } from "@/components/ui/separator"
-import { toast } from "@/components/ui/use-toast"
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
+import { toast } from "@/components/ui/use-toast";
 
 export default function SignInPage() {
-  const router = useRouter()
-  const [isLoading, setIsLoading] = useState(false)
-  const [showPassword, setShowPassword] = useState(false)
-  const [show2FA, setShow2FA] = useState(false)
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [show2FA, setShow2FA] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
     code2FA: "",
-  })
+  });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
-  }
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsLoading(true)
+    e.preventDefault();
+    setIsLoading(true);
 
     try {
       if (!show2FA) {
         // First step: validate credentials
         // This is where you would make an API call to validate credentials
-        setShow2FA(true)
+        setShow2FA(true);
         toast({
           title: "Xác thực 2 lớp",
-          description: "Vui lòng nhập mã xác thực được gửi đến điện thoại của bạn",
-        })
+          description:
+            "Vui lòng nhập mã xác thực được gửi đến điện thoại của bạn",
+        });
       } else {
         // Second step: validate 2FA code
         // This is where you would make an API call to validate 2FA code
         toast({
           title: "Đăng nhập thành công",
           description: "Chào mừng bạn trở lại!",
-        })
-        router.push("/")
+        });
+        router.push("/");
       }
     } catch (error) {
       toast({
         title: "Lỗi",
         description: "Thông tin đăng nhập không chính xác",
         variant: "destructive",
-      })
+      });
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <Card className="w-full max-w-md">
         <CardHeader>
           <div className="flex items-center justify-between mb-2">
-            <CardTitle className="text-2xl font-bold">Đăng nhập</CardTitle>
+            <CardTitle className="text-2xl font-bold">Sign In</CardTitle>
             <Link href="/">
               <Button variant="outline" size="icon">
                 <Home className="h-4 w-4" />
@@ -79,8 +87,8 @@ export default function SignInPage() {
           </div>
           <CardDescription className="text-center">
             {!show2FA
-              ? "Đăng nhập để mua sắm và nhận nhiều ưu đãi"
-              : "Nhập mã xác thực để hoàn tất đăng nhập"}
+              ? "Login to shop and get great deals"
+              : "Get 2FA code to complete login"}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -159,7 +167,7 @@ export default function SignInPage() {
                       toast({
                         title: "Đã gửi lại mã",
                         description: "Vui lòng kiểm tra điện thoại của bạn",
-                      })
+                      });
                     }}
                   >
                     Gửi lại mã
@@ -239,6 +247,5 @@ export default function SignInPage() {
         )}
       </Card>
     </div>
-  )
+  );
 }
-

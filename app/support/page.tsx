@@ -1,55 +1,78 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState } from "react"
-import { motion } from "framer-motion"
-import Link from "next/link"
-import Image from "next/image"
-import { ArrowRight, CheckCircle2, HelpCircle, LifeBuoy, Mail, MessageCircle, Phone } from "lucide-react"
+import { useState } from "react";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import Image from "next/image";
+import {
+  ArrowRight,
+  CheckCircle2,
+  HelpCircle,
+  LifeBuoy,
+  Mail,
+  MessageCircle,
+  Phone,
+} from "lucide-react";
 
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import { toast } from "@/components/ui/use-toast"
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { toast } from "@/components/ui/use-toast";
 
 export default function SupportPage() {
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     subject: "",
     message: "",
-  })
+  });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
-  }
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
+    e.preventDefault();
+    setIsSubmitting(true);
 
     // Simulate API call
     setTimeout(() => {
       toast({
         title: "Message sent",
-        description: "We've received your message and will get back to you soon.",
-      })
-      setIsSubmitting(false)
+        description:
+          "We've received your message and will get back to you soon.",
+      });
+      setIsSubmitting(false);
       setFormData({
         name: "",
         email: "",
         subject: "",
         message: "",
-      })
-    }, 1500)
-  }
+      });
+    }, 1500);
+  };
 
   const container = {
     hidden: { opacity: 0 },
@@ -59,26 +82,15 @@ export default function SupportPage() {
         staggerChildren: 0.1,
       },
     },
-  }
+  };
 
   const item = {
     hidden: { opacity: 0, y: 20 },
     show: { opacity: 1, y: 0 },
-  }
+  };
 
   return (
     <div className="flex flex-col min-h-screen">
-      <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-16 items-center justify-between">
-          <div className="flex items-center gap-6 md:gap-10">
-            <Link href="/" className="flex items-center space-x-2">
-              <span className="hidden font-bold sm:inline-block text-xl bg-gradient-to-r from-blue-600 to-blue-400 text-transparent bg-clip-text">
-                TechHub
-              </span>
-            </Link>
-          </div>
-        </div>
-      </header>
       <main className="flex-1">
         <section className="py-12 bg-gradient-to-r from-blue-600 to-blue-800 text-white">
           <div className="container px-4 md:px-6">
@@ -89,9 +101,12 @@ export default function SupportPage() {
                 transition={{ duration: 0.5 }}
                 className="space-y-2"
               >
-                <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">How Can We Help You?</h1>
+                <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+                  How Can We Help You?
+                </h1>
                 <p className="mx-auto max-w-[700px] text-blue-100 md:text-xl">
-                  Our support team is here to assist you with any questions or issues you may have.
+                  Our support team is here to assist you with any questions or
+                  issues you may have.
                 </p>
               </motion.div>
               <motion.div
@@ -116,35 +131,55 @@ export default function SupportPage() {
         <section className="py-12">
           <div className="container px-4 md:px-6">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <motion.div variants={item} initial="hidden" animate="show" className="col-span-1">
+              <motion.div
+                variants={item}
+                initial="hidden"
+                animate="show"
+                className="col-span-1"
+              >
                 <Card className="h-full">
                   <CardHeader className="pb-3">
                     <CardTitle className="text-xl">Contact Methods</CardTitle>
-                    <CardDescription>Choose how you'd like to get in touch with us</CardDescription>
+                    <CardDescription>
+                      Choose how you'd like to get in touch with us
+                    </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="flex items-start space-x-3">
                       <Phone className="h-5 w-5 text-blue-600 mt-0.5" />
                       <div>
                         <h3 className="font-medium">Phone Support</h3>
-                        <p className="text-sm text-gray-500">Available Mon-Fri, 9am-5pm</p>
-                        <p className="text-sm font-medium mt-1">+1 (800) 123-4567</p>
+                        <p className="text-sm text-gray-500">
+                          Available Mon-Fri, 9am-5pm
+                        </p>
+                        <p className="text-sm font-medium mt-1">
+                          +1 (800) 123-4567
+                        </p>
                       </div>
                     </div>
                     <div className="flex items-start space-x-3">
                       <Mail className="h-5 w-5 text-blue-600 mt-0.5" />
                       <div>
                         <h3 className="font-medium">Email Support</h3>
-                        <p className="text-sm text-gray-500">We'll respond within 24 hours</p>
-                        <p className="text-sm font-medium mt-1">support@techhub.com</p>
+                        <p className="text-sm text-gray-500">
+                          We'll respond within 24 hours
+                        </p>
+                        <p className="text-sm font-medium mt-1">
+                          support@techhub.com
+                        </p>
                       </div>
                     </div>
                     <div className="flex items-start space-x-3">
                       <MessageCircle className="h-5 w-5 text-blue-600 mt-0.5" />
                       <div>
                         <h3 className="font-medium">Live Chat</h3>
-                        <p className="text-sm text-gray-500">Chat with our support team</p>
-                        <Button variant="link" className="text-sm p-0 h-auto mt-1 text-blue-600">
+                        <p className="text-sm text-gray-500">
+                          Chat with our support team
+                        </p>
+                        <Button
+                          variant="link"
+                          className="text-sm p-0 h-auto mt-1 text-blue-600"
+                        >
                           Start a chat session
                         </Button>
                       </div>
@@ -169,7 +204,8 @@ export default function SupportPage() {
                   <CardHeader>
                     <CardTitle>Send us a message</CardTitle>
                     <CardDescription>
-                      Fill out the form below and we'll get back to you as soon as possible.
+                      Fill out the form below and we'll get back to you as soon
+                      as possible.
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
@@ -222,7 +258,11 @@ export default function SupportPage() {
                           onChange={handleChange}
                         />
                       </div>
-                      <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700" disabled={isSubmitting}>
+                      <Button
+                        type="submit"
+                        className="w-full bg-blue-600 hover:bg-blue-700"
+                        disabled={isSubmitting}
+                      >
                         {isSubmitting ? (
                           <>
                             <svg
@@ -263,7 +303,9 @@ export default function SupportPage() {
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center mb-8">
               <div className="space-y-2">
-                <h2 className="text-3xl font-bold tracking-tighter">Frequently Asked Questions</h2>
+                <h2 className="text-3xl font-bold tracking-tighter">
+                  Frequently Asked Questions
+                </h2>
                 <p className="mx-auto max-w-[700px] text-gray-500 md:text-lg">
                   Find answers to our most commonly asked questions.
                 </p>
@@ -281,34 +323,49 @@ export default function SupportPage() {
               <TabsContent value="orders" className="mt-6">
                 <Accordion type="single" collapsible className="w-full">
                   <AccordionItem value="item-1">
-                    <AccordionTrigger>How do I track my order?</AccordionTrigger>
+                    <AccordionTrigger>
+                      How do I track my order?
+                    </AccordionTrigger>
                     <AccordionContent>
-                      You can track your order by logging into your account and visiting the "Order History" section.
-                      Alternatively, you can use the tracking number provided in your shipping confirmation email to
-                      track your package on the carrier's website.
+                      You can track your order by logging into your account and
+                      visiting the "Order History" section. Alternatively, you
+                      can use the tracking number provided in your shipping
+                      confirmation email to track your package on the carrier's
+                      website.
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="item-2">
-                    <AccordionTrigger>Can I modify or cancel my order?</AccordionTrigger>
+                    <AccordionTrigger>
+                      Can I modify or cancel my order?
+                    </AccordionTrigger>
                     <AccordionContent>
-                      You can modify or cancel your order within 1 hour of placing it. After that, the order may have
-                      already been processed for shipping. Please contact our customer support team as soon as possible
-                      if you need to make changes to your order.
+                      You can modify or cancel your order within 1 hour of
+                      placing it. After that, the order may have already been
+                      processed for shipping. Please contact our customer
+                      support team as soon as possible if you need to make
+                      changes to your order.
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="item-3">
-                    <AccordionTrigger>What payment methods do you accept?</AccordionTrigger>
+                    <AccordionTrigger>
+                      What payment methods do you accept?
+                    </AccordionTrigger>
                     <AccordionContent>
-                      We accept all major credit cards (Visa, Mastercard, American Express, Discover), PayPal, Apple
-                      Pay, and Google Pay. We also offer financing options through Affirm for eligible purchases.
+                      We accept all major credit cards (Visa, Mastercard,
+                      American Express, Discover), PayPal, Apple Pay, and Google
+                      Pay. We also offer financing options through Affirm for
+                      eligible purchases.
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="item-4">
-                    <AccordionTrigger>How can I get an invoice for my order?</AccordionTrigger>
+                    <AccordionTrigger>
+                      How can I get an invoice for my order?
+                    </AccordionTrigger>
                     <AccordionContent>
-                      An invoice is automatically sent to your email address when your order is confirmed. You can also
-                      download a copy of your invoice by logging into your account and visiting the "Order History"
-                      section.
+                      An invoice is automatically sent to your email address
+                      when your order is confirmed. You can also download a copy
+                      of your invoice by logging into your account and visiting
+                      the "Order History" section.
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
@@ -317,34 +374,48 @@ export default function SupportPage() {
               <TabsContent value="shipping" className="mt-6">
                 <Accordion type="single" collapsible className="w-full">
                   <AccordionItem value="item-1">
-                    <AccordionTrigger>How long will it take to receive my order?</AccordionTrigger>
+                    <AccordionTrigger>
+                      How long will it take to receive my order?
+                    </AccordionTrigger>
                     <AccordionContent>
-                      Standard shipping typically takes 3-5 business days. Expedited shipping options are available at
-                      checkout for faster delivery. Please note that delivery times may be affected by customs clearance
-                      for international orders.
+                      Standard shipping typically takes 3-5 business days.
+                      Expedited shipping options are available at checkout for
+                      faster delivery. Please note that delivery times may be
+                      affected by customs clearance for international orders.
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="item-2">
-                    <AccordionTrigger>Do you ship internationally?</AccordionTrigger>
+                    <AccordionTrigger>
+                      Do you ship internationally?
+                    </AccordionTrigger>
                     <AccordionContent>
-                      Yes, we ship to most countries worldwide. International shipping rates and delivery times vary by
-                      location. Please note that customers are responsible for any customs fees or import taxes that may
-                      apply.
+                      Yes, we ship to most countries worldwide. International
+                      shipping rates and delivery times vary by location. Please
+                      note that customers are responsible for any customs fees
+                      or import taxes that may apply.
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="item-3">
-                    <AccordionTrigger>Is free shipping available?</AccordionTrigger>
+                    <AccordionTrigger>
+                      Is free shipping available?
+                    </AccordionTrigger>
                     <AccordionContent>
-                      We offer free standard shipping on all orders over $50 within the continental United States. Free
-                      shipping promotions may be available for international orders during special sales events.
+                      We offer free standard shipping on all orders over $50
+                      within the continental United States. Free shipping
+                      promotions may be available for international orders
+                      during special sales events.
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="item-4">
-                    <AccordionTrigger>What if my package is lost or damaged?</AccordionTrigger>
+                    <AccordionTrigger>
+                      What if my package is lost or damaged?
+                    </AccordionTrigger>
                     <AccordionContent>
-                      If your package is lost or damaged during transit, please contact our customer support team within
-                      7 days of the expected delivery date. We'll work with the shipping carrier to resolve the issue
-                      and arrange for a replacement or refund.
+                      If your package is lost or damaged during transit, please
+                      contact our customer support team within 7 days of the
+                      expected delivery date. We'll work with the shipping
+                      carrier to resolve the issue and arrange for a replacement
+                      or refund.
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
@@ -353,35 +424,48 @@ export default function SupportPage() {
               <TabsContent value="returns" className="mt-6">
                 <Accordion type="single" collapsible className="w-full">
                   <AccordionItem value="item-1">
-                    <AccordionTrigger>What is your return policy?</AccordionTrigger>
+                    <AccordionTrigger>
+                      What is your return policy?
+                    </AccordionTrigger>
                     <AccordionContent>
-                      We offer a 30-day return policy for most products. Items must be in their original condition with
-                      all packaging and accessories. Some products, such as software and personalized items, may not be
-                      eligible for return.
+                      We offer a 30-day return policy for most products. Items
+                      must be in their original condition with all packaging and
+                      accessories. Some products, such as software and
+                      personalized items, may not be eligible for return.
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="item-2">
-                    <AccordionTrigger>How do I initiate a return?</AccordionTrigger>
+                    <AccordionTrigger>
+                      How do I initiate a return?
+                    </AccordionTrigger>
                     <AccordionContent>
-                      To initiate a return, log into your account and visit the "Order History" section. Select the
-                      order containing the item you wish to return and follow the return instructions. You can also
-                      contact our customer support team for assistance.
+                      To initiate a return, log into your account and visit the
+                      "Order History" section. Select the order containing the
+                      item you wish to return and follow the return
+                      instructions. You can also contact our customer support
+                      team for assistance.
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="item-3">
-                    <AccordionTrigger>How long does it take to process a refund?</AccordionTrigger>
+                    <AccordionTrigger>
+                      How long does it take to process a refund?
+                    </AccordionTrigger>
                     <AccordionContent>
-                      Once we receive your returned item, it typically takes 3-5 business days to process the refund.
-                      The funds may take an additional 5-10 business days to appear in your account, depending on your
-                      payment method and financial institution.
+                      Once we receive your returned item, it typically takes 3-5
+                      business days to process the refund. The funds may take an
+                      additional 5-10 business days to appear in your account,
+                      depending on your payment method and financial
+                      institution.
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="item-4">
                     <AccordionTrigger>Do you offer exchanges?</AccordionTrigger>
                     <AccordionContent>
-                      Yes, we offer exchanges for items of equal or lesser value. If you wish to exchange for an item of
-                      greater value, you'll need to pay the difference. To request an exchange, follow the same process
-                      as initiating a return and select "Exchange" instead of "Return."
+                      Yes, we offer exchanges for items of equal or lesser
+                      value. If you wish to exchange for an item of greater
+                      value, you'll need to pay the difference. To request an
+                      exchange, follow the same process as initiating a return
+                      and select "Exchange" instead of "Return."
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
@@ -390,36 +474,52 @@ export default function SupportPage() {
               <TabsContent value="technical" className="mt-6">
                 <Accordion type="single" collapsible className="w-full">
                   <AccordionItem value="item-1">
-                    <AccordionTrigger>How do I reset my password?</AccordionTrigger>
+                    <AccordionTrigger>
+                      How do I reset my password?
+                    </AccordionTrigger>
                     <AccordionContent>
-                      To reset your password, click on the "Forgot Password" link on the login page. Enter the email
-                      address associated with your account, and we'll send you a password reset link. Follow the
-                      instructions in the email to create a new password.
+                      To reset your password, click on the "Forgot Password"
+                      link on the login page. Enter the email address associated
+                      with your account, and we'll send you a password reset
+                      link. Follow the instructions in the email to create a new
+                      password.
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="item-2">
-                    <AccordionTrigger>What should I do if a product is defective?</AccordionTrigger>
+                    <AccordionTrigger>
+                      What should I do if a product is defective?
+                    </AccordionTrigger>
                     <AccordionContent>
-                      If you receive a defective product, please contact our customer support team within 14 days of
-                      delivery. We'll help troubleshoot the issue and arrange for a replacement or refund if necessary.
-                      For products under manufacturer warranty, we can also help you contact the manufacturer for
-                      warranty service.
+                      If you receive a defective product, please contact our
+                      customer support team within 14 days of delivery. We'll
+                      help troubleshoot the issue and arrange for a replacement
+                      or refund if necessary. For products under manufacturer
+                      warranty, we can also help you contact the manufacturer
+                      for warranty service.
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="item-3">
-                    <AccordionTrigger>Do you offer technical support for products?</AccordionTrigger>
+                    <AccordionTrigger>
+                      Do you offer technical support for products?
+                    </AccordionTrigger>
                     <AccordionContent>
-                      We offer basic technical support for all products purchased from our store. For more complex
-                      issues, we may refer you to the manufacturer's technical support team. Many of our products also
-                      include access to online resources, user manuals, and troubleshooting guides.
+                      We offer basic technical support for all products
+                      purchased from our store. For more complex issues, we may
+                      refer you to the manufacturer's technical support team.
+                      Many of our products also include access to online
+                      resources, user manuals, and troubleshooting guides.
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="item-4">
-                    <AccordionTrigger>How do I update my device's firmware or software?</AccordionTrigger>
+                    <AccordionTrigger>
+                      How do I update my device's firmware or software?
+                    </AccordionTrigger>
                     <AccordionContent>
-                      Firmware and software updates vary by product and manufacturer. Generally, you can find the latest
-                      updates on the manufacturer's website or through the device's built-in update feature. We
-                      recommend regularly checking for updates to ensure optimal performance and security.
+                      Firmware and software updates vary by product and
+                      manufacturer. Generally, you can find the latest updates
+                      on the manufacturer's website or through the device's
+                      built-in update feature. We recommend regularly checking
+                      for updates to ensure optimal performance and security.
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
@@ -427,7 +527,11 @@ export default function SupportPage() {
             </Tabs>
 
             <div className="flex justify-center mt-8">
-              <Button asChild variant="outline" className="text-blue-600 hover:text-blue-700 hover:bg-blue-50">
+              <Button
+                asChild
+                variant="outline"
+                className="text-blue-600 hover:text-blue-700 hover:bg-blue-50"
+              >
                 <Link href="/support/faq">
                   View all FAQs <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
@@ -440,7 +544,9 @@ export default function SupportPage() {
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center mb-8">
               <div className="space-y-2">
-                <h2 className="text-3xl font-bold tracking-tighter">Self-Service Support</h2>
+                <h2 className="text-3xl font-bold tracking-tighter">
+                  Self-Service Support
+                </h2>
                 <p className="mx-auto max-w-[700px] text-gray-500 md:text-lg">
                   Find answers and solutions with our helpful resources.
                 </p>
@@ -464,13 +570,15 @@ export default function SupportPage() {
                   </CardHeader>
                   <CardContent>
                     <p className="text-gray-500">
-                      Browse our comprehensive collection of articles, tutorials, and guides to find answers to your
-                      questions.
+                      Browse our comprehensive collection of articles,
+                      tutorials, and guides to find answers to your questions.
                     </p>
                   </CardContent>
                   <CardFooter>
                     <Button asChild variant="outline" className="w-full">
-                      <Link href="/support/knowledge-base">Browse Articles</Link>
+                      <Link href="/support/knowledge-base">
+                        Browse Articles
+                      </Link>
                     </Button>
                   </CardFooter>
                 </Card>
@@ -499,7 +607,8 @@ export default function SupportPage() {
                   </CardHeader>
                   <CardContent>
                     <p className="text-gray-500">
-                      Watch step-by-step video tutorials on how to set up, use, and troubleshoot your products.
+                      Watch step-by-step video tutorials on how to set up, use,
+                      and troubleshoot your products.
                     </p>
                   </CardContent>
                   <CardFooter>
@@ -534,7 +643,8 @@ export default function SupportPage() {
                   </CardHeader>
                   <CardContent>
                     <p className="text-gray-500">
-                      Download user manuals, quick start guides, and technical specifications for your products.
+                      Download user manuals, quick start guides, and technical
+                      specifications for your products.
                     </p>
                   </CardContent>
                   <CardFooter>
@@ -561,10 +671,13 @@ export default function SupportPage() {
                 />
               </div>
               <div className="md:w-1/2 space-y-4">
-                <h2 className="text-3xl font-bold tracking-tighter">We're Here to Help</h2>
+                <h2 className="text-3xl font-bold tracking-tighter">
+                  We're Here to Help
+                </h2>
                 <p className="text-gray-600">
-                  Our dedicated support team is committed to providing exceptional service and resolving your issues
-                  quickly and efficiently.
+                  Our dedicated support team is committed to providing
+                  exceptional service and resolving your issues quickly and
+                  efficiently.
                 </p>
                 <ul className="space-y-3">
                   <li className="flex items-start">
@@ -593,6 +706,5 @@ export default function SupportPage() {
         </section>
       </main>
     </div>
-  )
+  );
 }
-

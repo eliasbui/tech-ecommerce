@@ -141,17 +141,6 @@ export default function CheckoutPage() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-16 items-center justify-between">
-          <div className="flex items-center gap-6 md:gap-10">
-            <Link href="/" className="flex items-center space-x-2">
-              <span className="hidden font-bold sm:inline-block text-xl bg-gradient-to-r from-blue-600 to-blue-400 text-transparent bg-clip-text">
-                TechHub
-              </span>
-            </Link>
-          </div>
-        </div>
-      </header>
       <div className="container px-4 md:px-6 py-6 md:py-8">
         <div className="flex items-center gap-1 text-sm text-gray-500 mb-6">
           <Link href="/" className="hover:text-blue-600">

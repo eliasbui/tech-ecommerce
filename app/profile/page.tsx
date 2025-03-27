@@ -28,16 +28,6 @@ export default function ProfilePage() {
 
   return (
     <div className="container mx-auto py-8 px-4">
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-3xl font-bold">Hồ sơ của tôi</h1>
-        <Link href="/">
-          <Button variant="outline" className="flex items-center gap-2">
-            <Home className="w-4 h-4" />
-            Trang chủ
-          </Button>
-        </Link>
-      </div>
-
       <Tabs defaultValue="info" className="w-full" value={activeTab} onValueChange={setActiveTab}>
         <TabsList className="grid w-full grid-cols-5">
           <TabsTrigger value="info">Thông tin tài khoản</TabsTrigger>

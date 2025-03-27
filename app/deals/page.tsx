@@ -240,28 +240,6 @@ export default function DealsPage() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-16 items-center justify-between">
-          <div className="flex items-center gap-6 md:gap-10">
-            <Link href="/" className="flex items-center space-x-2">
-              <span className="hidden font-bold sm:inline-block text-xl bg-gradient-to-r from-blue-600 to-blue-400 text-transparent bg-clip-text">
-                TechHub
-              </span>
-            </Link>
-          </div>
-          <div className="flex items-center gap-4">
-            <Link href="/cart">
-              <Button variant="ghost" size="icon" className="hover:text-blue-600 relative">
-                <ShoppingCart className="h-5 w-5" />
-                <span className="sr-only">Cart</span>
-                <span className="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-blue-600 text-xs text-white flex items-center justify-center">
-                  3
-                </span>
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </header>
       <main className="flex-1">
         <section className="py-12 bg-gradient-to-r from-blue-600 to-blue-800 text-white">
           <div className="container px-4 md:px-6">

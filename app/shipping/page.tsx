@@ -1,41 +1,49 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { motion } from "framer-motion"
-import Link from "next/link"
-import Image from "next/image"
-import { ArrowRight, Calendar, ChevronRight, Info, Truck } from "lucide-react"
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import Image from "next/image";
+import { ArrowRight, Calendar, ChevronRight, Info, Truck } from "lucide-react";
 
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Label } from "@/components/ui/label"
-import { Separator } from "@/components/ui/separator"
-import { Badge } from "@/components/ui/badge"
-import { toast } from "@/components/ui/use-toast"
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
+import { Badge } from "@/components/ui/badge";
+import { toast } from "@/components/ui/use-toast";
 
 export default function ShippingPage() {
-  const [selectedShipping, setSelectedShipping] = useState("standard")
+  const [selectedShipping, setSelectedShipping] = useState("standard");
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
     minutes: 0,
     seconds: 0,
-  })
+  });
 
   // Calculate delivery dates based on shipping method
-  const today = new Date()
+  const today = new Date();
   const deliveryDates = {
     standard: new Date(today.getTime() + 5 * 24 * 60 * 60 * 1000), // 5 days from now
     express: new Date(today.getTime() + 2 * 24 * 60 * 60 * 1000), // 2 days from now
     sameDay: new Date(today.setHours(20, 0, 0, 0)), // Today at 8 PM
-  }
+  };
 
   // Calculate time left until delivery
   useEffect(() => {
     const calculateTimeLeft = () => {
-      const targetDate = deliveryDates[selectedShipping as keyof typeof deliveryDates]
-      const difference = targetDate.getTime() - new Date().getTime()
+      const targetDate =
+        deliveryDates[selectedShipping as keyof typeof deliveryDates];
+      const difference = targetDate.getTime() - new Date().getTime();
 
       if (difference > 0) {
         setTimeLeft({
@@ -43,29 +51,29 @@ export default function ShippingPage() {
           hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
           minutes: Math.floor((difference / 1000 / 60) % 60),
           seconds: Math.floor((difference / 1000) % 60),
-        })
+        });
       } else {
-        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 })
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
       }
-    }
+    };
 
-    calculateTimeLeft()
-    const timer = setInterval(calculateTimeLeft, 1000)
+    calculateTimeLeft();
+    const timer = setInterval(calculateTimeLeft, 1000);
 
-    return () => clearInterval(timer)
-  }, [selectedShipping])
+    return () => clearInterval(timer);
+  }, [selectedShipping]);
 
   const formatTime = (value: number) => {
-    return value.toString().padStart(2, "0")
-  }
+    return value.toString().padStart(2, "0");
+  };
 
   const formatDate = (date: Date) => {
     return date.toLocaleDateString("en-US", {
       weekday: "long",
       month: "long",
       day: "numeric",
-    })
-  }
+    });
+  };
 
   // Mock cart items
   const cartItems = [
@@ -83,37 +91,33 @@ export default function ShippingPage() {
       image: "/placeholder.svg?height=80&width=80",
       quantity: 1,
     },
-  ]
+  ];
 
-  const subtotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0)
+  const subtotal = cartItems.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
   const shippingCosts = {
     standard: 9.99,
     express: 19.99,
     sameDay: 29.99,
-  }
-  const tax = subtotal * 0.08
-  const total = subtotal + shippingCosts[selectedShipping as keyof typeof shippingCosts] + tax
+  };
+  const tax = subtotal * 0.08;
+  const total =
+    subtotal +
+    shippingCosts[selectedShipping as keyof typeof shippingCosts] +
+    tax;
 
   const handleContinue = () => {
     toast({
       title: "Shipping method selected",
       description: `Your order will be delivered via ${selectedShipping} shipping.`,
-    })
-  }
+    });
+  };
 
   return (
     <div className="flex flex-col min-h-screen">
-      <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-16 items-center justify-between">
-          <div className="flex items-center gap-6 md:gap-10">
-            <Link href="/" className="flex items-center space-x-2">
-              <span className="hidden font-bold sm:inline-block text-xl bg-gradient-to-r from-blue-600 to-blue-400 text-transparent bg-clip-text">
-                TechHub
-              </span>
-            </Link>
-          </div>
-        </div>
-      </header>
+
       <div className="container px-4 md:px-6 py-6 md:py-8">
         <div className="flex items-center gap-1 text-sm text-gray-500 mb-6">
           <Link href="/" className="hover:text-blue-600">
@@ -132,7 +136,9 @@ export default function ShippingPage() {
             <Card>
               <CardHeader>
                 <CardTitle className="text-2xl">Shipping Method</CardTitle>
-                <CardDescription>Choose how you want your order delivered</CardDescription>
+                <CardDescription>
+                  Choose how you want your order delivered
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <RadioGroup
@@ -146,22 +152,32 @@ export default function ShippingPage() {
                       className="absolute inset-0 rounded-md"
                       animate={{
                         backgroundColor:
-                          selectedShipping === "standard" ? "rgba(59, 130, 246, 0.1)" : "rgba(0, 0, 0, 0)",
-                        borderColor: selectedShipping === "standard" ? "rgba(59, 130, 246, 0.5)" : "rgba(0, 0, 0, 0)",
+                          selectedShipping === "standard"
+                            ? "rgba(59, 130, 246, 0.1)"
+                            : "rgba(0, 0, 0, 0)",
+                        borderColor:
+                          selectedShipping === "standard"
+                            ? "rgba(59, 130, 246, 0.5)"
+                            : "rgba(0, 0, 0, 0)",
                       }}
                       transition={{ duration: 0.2 }}
                       style={{ border: "1px solid" }}
                     />
                     <div className="relative flex items-center space-x-2 rounded-md border p-4">
                       <RadioGroupItem value="standard" id="standard" />
-                      <Label htmlFor="standard" className="flex flex-1 cursor-pointer items-center justify-between">
+                      <Label
+                        htmlFor="standard"
+                        className="flex flex-1 cursor-pointer items-center justify-between"
+                      >
                         <div className="flex items-center gap-4">
                           <div className="bg-blue-100 p-2 rounded-full">
                             <Truck className="h-5 w-5 text-blue-600" />
                           </div>
                           <div>
                             <p className="font-medium">Standard Shipping</p>
-                            <p className="text-sm text-gray-500">Delivery by {formatDate(deliveryDates.standard)}</p>
+                            <p className="text-sm text-gray-500">
+                              Delivery by {formatDate(deliveryDates.standard)}
+                            </p>
                           </div>
                         </div>
                         <div className="font-medium">$9.99</div>
@@ -174,15 +190,23 @@ export default function ShippingPage() {
                       className="absolute inset-0 rounded-md"
                       animate={{
                         backgroundColor:
-                          selectedShipping === "express" ? "rgba(59, 130, 246, 0.1)" : "rgba(0, 0, 0, 0)",
-                        borderColor: selectedShipping === "express" ? "rgba(59, 130, 246, 0.5)" : "rgba(0, 0, 0, 0)",
+                          selectedShipping === "express"
+                            ? "rgba(59, 130, 246, 0.1)"
+                            : "rgba(0, 0, 0, 0)",
+                        borderColor:
+                          selectedShipping === "express"
+                            ? "rgba(59, 130, 246, 0.5)"
+                            : "rgba(0, 0, 0, 0)",
                       }}
                       transition={{ duration: 0.2 }}
                       style={{ border: "1px solid" }}
                     />
                     <div className="relative flex items-center space-x-2 rounded-md border p-4">
                       <RadioGroupItem value="express" id="express" />
-                      <Label htmlFor="express" className="flex flex-1 cursor-pointer items-center justify-between">
+                      <Label
+                        htmlFor="express"
+                        className="flex flex-1 cursor-pointer items-center justify-between"
+                      >
                         <div className="flex items-center gap-4">
                           <div className="bg-blue-100 p-2 rounded-full">
                             <svg
@@ -206,7 +230,9 @@ export default function ShippingPage() {
                               <p className="font-medium">Express Shipping</p>
                               <Badge className="bg-blue-600">Recommended</Badge>
                             </div>
-                            <p className="text-sm text-gray-500">Delivery by {formatDate(deliveryDates.express)}</p>
+                            <p className="text-sm text-gray-500">
+                              Delivery by {formatDate(deliveryDates.express)}
+                            </p>
                           </div>
                         </div>
                         <div className="font-medium">$19.99</div>
@@ -219,15 +245,23 @@ export default function ShippingPage() {
                       className="absolute inset-0 rounded-md"
                       animate={{
                         backgroundColor:
-                          selectedShipping === "sameDay" ? "rgba(59, 130, 246, 0.1)" : "rgba(0, 0, 0, 0)",
-                        borderColor: selectedShipping === "sameDay" ? "rgba(59, 130, 246, 0.5)" : "rgba(0, 0, 0, 0)",
+                          selectedShipping === "sameDay"
+                            ? "rgba(59, 130, 246, 0.1)"
+                            : "rgba(0, 0, 0, 0)",
+                        borderColor:
+                          selectedShipping === "sameDay"
+                            ? "rgba(59, 130, 246, 0.5)"
+                            : "rgba(0, 0, 0, 0)",
                       }}
                       transition={{ duration: 0.2 }}
                       style={{ border: "1px solid" }}
                     />
                     <div className="relative flex items-center space-x-2 rounded-md border p-4">
                       <RadioGroupItem value="sameDay" id="sameDay" />
-                      <Label htmlFor="sameDay" className="flex flex-1 cursor-pointer items-center justify-between">
+                      <Label
+                        htmlFor="sameDay"
+                        className="flex flex-1 cursor-pointer items-center justify-between"
+                      >
                         <div className="flex items-center gap-4">
                           <div className="bg-blue-100 p-2 rounded-full">
                             <svg
@@ -251,7 +285,9 @@ export default function ShippingPage() {
                               <p className="font-medium">Same-Day Delivery</p>
                               <Badge className="bg-green-600">Fastest</Badge>
                             </div>
-                            <p className="text-sm text-gray-500">Delivery today by 8:00 PM</p>
+                            <p className="text-sm text-gray-500">
+                              Delivery today by 8:00 PM
+                            </p>
                           </div>
                         </div>
                         <div className="font-medium">$29.99</div>
@@ -261,7 +297,9 @@ export default function ShippingPage() {
                 </RadioGroup>
 
                 <div className="mt-8">
-                  <h3 className="text-lg font-medium mb-4">Estimated Delivery</h3>
+                  <h3 className="text-lg font-medium mb-4">
+                    Estimated Delivery
+                  </h3>
                   <Card>
                     <CardContent className="p-6">
                       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -270,9 +308,15 @@ export default function ShippingPage() {
                             <Calendar className="h-6 w-6 text-blue-600" />
                           </div>
                           <div>
-                            <p className="font-medium">Expected Delivery Date</p>
+                            <p className="font-medium">
+                              Expected Delivery Date
+                            </p>
                             <p className="text-xl font-bold text-blue-600">
-                              {formatDate(deliveryDates[selectedShipping as keyof typeof deliveryDates])}
+                              {formatDate(
+                                deliveryDates[
+                                  selectedShipping as keyof typeof deliveryDates
+                                ]
+                              )}
                             </p>
                             <p className="text-sm text-gray-500 flex items-center gap-1 mt-1">
                               <Info className="h-3 w-3" />
@@ -284,7 +328,9 @@ export default function ShippingPage() {
                         </div>
 
                         <div className="flex flex-col items-center">
-                          <p className="text-sm text-gray-500 mb-2">Time until delivery:</p>
+                          <p className="text-sm text-gray-500 mb-2">
+                            Time until delivery:
+                          </p>
                           <div className="grid grid-cols-4 gap-2 text-center">
                             <div className="flex flex-col items-center">
                               <motion.div
@@ -341,7 +387,11 @@ export default function ShippingPage() {
                 <Button variant="outline" asChild>
                   <Link href="/cart">Back to Cart</Link>
                 </Button>
-                <Button className="bg-blue-600 hover:bg-blue-700" onClick={handleContinue} asChild>
+                <Button
+                  className="bg-blue-600 hover:bg-blue-700"
+                  onClick={handleContinue}
+                  asChild
+                >
                   <Link href="/checkout">
                     Continue to Payment <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
@@ -370,7 +420,9 @@ export default function ShippingPage() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="font-medium truncate">{item.name}</p>
-                        <p className="text-sm text-gray-500">Qty: {item.quantity}</p>
+                        <p className="text-sm text-gray-500">
+                          Qty: {item.quantity}
+                        </p>
                       </div>
                       <div className="text-right">
                         <p className="font-medium">${item.price.toFixed(2)}</p>
@@ -388,7 +440,12 @@ export default function ShippingPage() {
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-500">Shipping</span>
-                    <span>${shippingCosts[selectedShipping as keyof typeof shippingCosts].toFixed(2)}</span>
+                    <span>
+                      $
+                      {shippingCosts[
+                        selectedShipping as keyof typeof shippingCosts
+                      ].toFixed(2)}
+                    </span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-500">Tax</span>
@@ -412,10 +469,14 @@ export default function ShippingPage() {
                   <div>
                     <h4 className="font-medium">Shipping Policy</h4>
                     <p className="text-sm text-gray-500 mt-1">
-                      All orders are processed and shipped within 24 hours on business days. Delivery times vary based
-                      on the selected shipping method and your location.
+                      All orders are processed and shipped within 24 hours on
+                      business days. Delivery times vary based on the selected
+                      shipping method and your location.
                     </p>
-                    <Button variant="link" className="p-0 h-auto text-blue-600 text-sm">
+                    <Button
+                      variant="link"
+                      className="p-0 h-auto text-blue-600 text-sm"
+                    >
                       View Full Shipping Policy
                     </Button>
                   </div>
@@ -426,6 +487,5 @@ export default function ShippingPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }
-

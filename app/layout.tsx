@@ -1,13 +1,13 @@
 import type React from "react"
-import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+import type {Metadata} from "next"
+import {Inter} from "next/font/google"
 import "./globals.css"
-import { Toaster } from "@/components/ui/toaster"
-import { ThemeProvider } from "@/components/ThemeProvider"
-import ThemeToggle from "@/components/ThemeToggle"
+import {Toaster} from "@/components/ui/toaster"
+import {ThemeProvider} from "@/components/ThemeProvider"
 import FooterPopup from "@/components/FooterPopup"
+import { MainNav } from "@/components/MainNav"
 
-const inter = Inter({ subsets: ["latin"] })
+const inter = Inter({subsets: ["latin"]})
 
 export const metadata: Metadata = {
   title: "TechHub - Premium Tech Products",
@@ -24,9 +24,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen pb-20`}>
         <ThemeProvider>
-          <div className="fixed top-4 right-4 z-50">
-            <ThemeToggle />
-          </div>
+          <MainNav />
           <main className="min-h-screen">
             {children}
           </main>
@@ -37,7 +35,6 @@ export default function RootLayout({
     </html>
   )
 }
-
 
 
 import './globals.css'
