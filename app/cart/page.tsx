@@ -4,13 +4,14 @@ import { useState } from "react"
 import { motion } from "framer-motion"
 import Link from "next/link"
 import Image from "next/image"
-import { ArrowRight, ChevronRight, Minus, Plus, ShoppingBag, Trash2 } from "lucide-react"
+import { ArrowRight, ChevronRight, Menu, Minus, Plus, ShoppingBag, Trash2, X } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 import { toast } from "@/components/ui/use-toast"
+import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet"
 
 export default function CartPage() {
   const [cartItems, setCartItems] = useState([
@@ -93,7 +94,7 @@ export default function CartPage() {
     },
   }
 
-  const item = {
+  const itemAnimation = {
     hidden: { opacity: 0, y: 20 },
     show: { opacity: 1, y: 0 },
   }
@@ -104,10 +105,111 @@ export default function CartPage() {
         <div className="container flex h-16 items-center justify-between">
           <div className="flex items-center gap-6 md:gap-10">
             <Link href="/" className="flex items-center space-x-2">
-              <span className="hidden font-bold sm:inline-block text-xl bg-gradient-to-r from-blue-600 to-blue-400 text-transparent bg-clip-text">
+              <span className="font-bold text-xl bg-gradient-to-r from-blue-600 to-blue-400 text-transparent bg-clip-text">
                 TechHub
               </span>
             </Link>
+            
+            {/* Desktop Navigation */}
+            <nav className="hidden md:flex items-center space-x-6">
+              <Link href="/products" className="text-sm font-medium hover:text-blue-600 transition-colors">
+                Products
+              </Link>
+              <Link href="/categories" className="text-sm font-medium hover:text-blue-600 transition-colors">
+                Categories
+              </Link>
+              <Link href="/deals" className="text-sm font-medium hover:text-blue-600 transition-colors">
+                Deals
+              </Link>
+              <Link href="/support" className="text-sm font-medium hover:text-blue-600 transition-colors">
+                Support
+              </Link>
+            </nav>
+          </div>
+          
+          <div className="flex items-center space-x-4">
+            {/* Search, Account, Cart Icons */}
+            <Button variant="ghost" size="icon" className="hidden md:flex">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.3-4.3"></path>
+              </svg>
+              <span className="sr-only">Search</span>
+            </Button>
+            
+            <Button variant="ghost" size="icon" className="hidden md:flex">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
+                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+              <span className="sr-only">Account</span>
+            </Button>
+            
+            <Button variant="ghost" size="icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
+                <circle cx="8" cy="21" r="1"></circle>
+                <circle cx="19" cy="21" r="1"></circle>
+                <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path>
+              </svg>
+              <span className="sr-only">Cart</span>
+            </Button>
+            
+            {/* Sign In Button */}
+            <Button variant="default" className="hidden md:flex bg-blue-600 hover:bg-blue-700">
+              Sign In
+            </Button>
+            
+            {/* Mobile Navigation */}
+            <div className="md:hidden">
+              <Sheet>
+                <SheetTrigger asChild>
+                  <Button variant="ghost" size="icon" className="h-9 w-9 p-0">
+                    <Menu className="h-5 w-5" />
+                    <span className="sr-only">Toggle menu</span>
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="right" className="w-[80%] sm:w-[350px] pt-10">
+                  <SheetClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary">
+                    <X className="h-4 w-4" />
+                    <span className="sr-only">Close</span>
+                  </SheetClose>
+                  <div className="flex flex-col space-y-4 py-4">
+                    <Link href="/" className="text-lg font-bold bg-gradient-to-r from-blue-600 to-blue-400 text-transparent bg-clip-text mb-6">
+                      TechHub
+                    </Link>
+                    <nav className="flex flex-col space-y-4">
+                      <Link href="/products" className="text-base font-medium hover:text-blue-600 transition-colors">
+                        Products
+                      </Link>
+                      <Separator className="my-1" />
+                      <Link href="/categories" className="text-base font-medium hover:text-blue-600 transition-colors">
+                        Categories
+                      </Link>
+                      <Separator className="my-1" />
+                      <Link href="/deals" className="text-base font-medium hover:text-blue-600 transition-colors">
+                        Deals
+                      </Link>
+                      <Separator className="my-1" />
+                      <Link href="/support" className="text-base font-medium hover:text-blue-600 transition-colors">
+                        Support
+                      </Link>
+                      <Separator className="my-1" />
+                      <Link href="/search" className="text-base font-medium hover:text-blue-600 transition-colors">
+                        Search
+                      </Link>
+                      <Separator className="my-1" />
+                      <Link href="/account" className="text-base font-medium hover:text-blue-600 transition-colors">
+                        Account
+                      </Link>
+                      <Separator className="my-1" />
+                      <Button className="w-full bg-blue-600 hover:bg-blue-700 mt-4">
+                        Sign In
+                      </Button>
+                    </nav>
+                  </div>
+                </SheetContent>
+              </Sheet>
+            </div>
           </div>
         </div>
       </header>
@@ -137,7 +239,7 @@ export default function CartPage() {
             <div className="lg:col-span-2">
               <motion.div variants={container} initial="hidden" animate="show" className="space-y-4">
                 {cartItems.map((item) => (
-                  <motion.div key={item.id} variants={item}>
+                  <motion.div key={item.id} variants={itemAnimation}>
                     <Card>
                       <CardContent className="p-4 sm:p-6">
                         <div className="flex flex-col sm:flex-row gap-4">
@@ -268,4 +370,3 @@ export default function CartPage() {
     </div>
   )
 }
-
